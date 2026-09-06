@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartPack AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: "Inter", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(0, 212, 255, 0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 70%,
+                    rgba(255, 174, 0, 0.10),
+                    transparent 30%
+                ),
+                #07111f;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+        }
+
+
+        /* ==============================
+           BACKGROUND EFFECTS
+        ============================== */
+
+        .orb {
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+
+            opacity: 0.18;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .orb-one {
+
+            width: 300px;
+            height: 300px;
+
+            background: #00d9ff;
+
+            top: 80px;
+            left: -120px;
+
+            animation: floatOne 8s ease-in-out infinite;
+        }
+
+
+        .orb-two {
+
+            width: 280px;
+            height: 280px;
+
+            background: #ffb000;
+
+            right: -100px;
+            bottom: 50px;
+
+            animation: floatTwo 9s ease-in-out infinite;
+        }
+
+
+        @keyframes floatOne {
+
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(50px, 40px);
+            }
+        }
+
+
+        @keyframes floatTwo {
+
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-40px, -50px);
+            }
+        }
+
+
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        nav {
+
+            height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+
+            background: rgba(7, 17, 31, 0.78);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .logo span {
+
+            color: #00d9ff;
+        }
+
+
+        .status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 13px;
+
+            color: #a9bacb;
+        }
+
+
+        .status-dot {
+
+            width: 8px;
+            height: 8px;
+
+            background: #23e58a;
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 12px #23e58a;
+
+            animation: pulse 1.8s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+
+        /* ==============================
+           MAIN
+        ============================== */
+
+        main {
+
+            position: relative;
+
+            z-index: 1;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 80px 25px;
+        }
+
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+
+            text-align: center;
+
+            max-width: 850px;
+
+            margin: 0 auto 55px;
+        }
+
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 15px;
+
+            border: 1px solid rgba(0, 217, 255, 0.25);
+
+            background: rgba(0, 217, 255, 0.08);
+
+            border-radius: 30px;
+
+            color: #7deaff;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 {
+
+            font-size: clamp(42px, 7vw, 78px);
+
+            line-height: 0.98;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 span {
+
+            background: linear-gradient(
+                90deg,
+                #00d9ff,
+                #7deaff
+            );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .hero p {
+
+            color: #9cafc1;
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            max-width: 650px;
+
+            margin: auto;
+        }
+
+
+        /* ==============================
+           FORM CARD
+        ============================== */
+
+        .planner-card {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            padding: 34px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17, 36, 57, 0.94),
+                    rgba(10, 25, 42, 0.94)
+                );
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.35);
+
+            backdrop-filter: blur(20px);
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+        }
+
+
+        .form-group.full {
+
+            grid-column: 1 / -1;
+        }
+
+
+        label {
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #c7d4e0;
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 15px 16px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(5, 17, 30, 0.72);
+
+            color: #ffffff;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            transition: 0.25s;
+        }
+
+
+        input::placeholder {
+
+            color: #71869a;
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: rgba(0, 217, 255, 0.6);
+
+            box-shadow:
+                0 0 0 3px rgba(0, 217, 255, 0.08);
+        }
+
+
+        select option {
+
+            background: #0b1b2d;
+
+            color: white;
+        }
+
+
+        /* ==============================
+           CUSTOM PURPOSE
+        ============================== */
+
+        .custom-purpose {
+
+            max-height: 0;
+
+            opacity: 0;
+
+            overflow: hidden;
+
+            margin-top: 0;
+
+            transition:
+                max-height 0.35s ease,
+                opacity 0.3s ease,
+                margin-top 0.35s ease;
+        }
+
+
+        .custom-purpose.show {
+
+            max-height: 80px;
+
+            opacity: 1;
+
+            margin-top: 10px;
+        }
+
+
+        .custom-purpose input {
+
+            padding-left: 16px;
+        }
+
+
+        /* ==============================
+           ACTIVITIES
+        ============================== */
+
+        .activity-label {
+
+            margin-top: 4px;
+        }
+
+
+        .activities {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+
+        .activity {
+
+            padding: 10px 14px;
+
+            border-radius: 30px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(255,255,255,0.035);
+
+            color: #9fb1c2;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+            user-select: none;
+        }
+
+
+        .activity:hover {
+
+            border-color: rgba(0,217,255,0.35);
+
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+
+        .activity.active {
+
+            background: rgba(0,217,255,0.12);
+
+            border-color: rgba(0,217,255,0.55);
+
+            color: #7deaff;
+
+            box-shadow:
+                0 5px 20px rgba(0,217,255,0.08);
+        }
+
+
+        /* ==============================
+           BUTTON
+        ============================== */
+
+        .generate-btn {
+
+            width: 100%;
+
+            margin-top: 28px;
+
+            padding: 17px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00bfe8,
+                    #00d9ff
+                );
+
+            color: #03121e;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 12px 30px rgba(0,217,255,0.18);
+        }
+
+
+        .generate-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 35px rgba(0,217,255,0.28);
+        }
+
+
+        .generate-btn:disabled {
+
+            opacity: 0.7;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        /* ==============================
+           FEATURES
+        ============================== */
+
+        .features {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 55px;
+        }
+
+
+        .feature-card {
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background: rgba(13, 30, 49, 0.7);
+
+            border: 1px solid rgba(255,255,255,0.06);
+
+            transition: 0.3s;
+        }
+
+
+        .feature-card:hover {
+
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(0,217,255,0.18);
+        }
+
+
+        .feature-icon {
+
+            font-size: 26px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .feature-card h3 {
+
+            font-size: 16px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .feature-card p {
+
+            color: #7f94a8;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==============================
+           RESULT
+        ============================== */
+
+        .result-section {
+
+            max-width: 850px;
+
+            margin: 35px auto 0;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(10, 27, 44, 0.9);
+
+            border:
+                1px solid rgba(35,229,138,0.15);
+        }
+
+
+        .result-title {
+
+            font-size: 18px;
+
+            margin-bottom: 20px;
+
+            color: #7deaff;
+        }
+
+
+        .weather-box {
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(0,217,255,0.05);
+
+            border:
+                1px solid rgba(0,217,255,0.1);
+
+            margin-bottom: 20px;
+        }
+
+
+        .weather-box h3 {
+
+            margin-bottom: 10px;
+
+            font-size: 15px;
+        }
+
+
+        .weather-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .weather-item {
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            font-size: 12px;
+
+            color: #a8bac9;
+        }
+
+
+        .weather-item strong {
+
+            display: block;
+
+            color: white;
+
+            font-size: 14px;
+
+            margin-top: 4px;
+        }
+
+
+        .packing-list {
+
+            list-style: none;
+
+            display: grid;
+
+            gap: 9px;
+        }
+
+
+        .packing-list li {
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            color: #d4e0e9;
+
+            font-size: 14px;
+        }
+
+
+        .ai-summary {
+
+            margin-top: 22px;
+
+            padding: 17px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,176,0,0.06);
+
+            border:
+                1px solid rgba(255,176,0,0.12);
+
+            color: #c9d5df;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 700px) {
+
+            main {
+
+                padding: 55px 16px;
+            }
+
+
+            .hero h1 {
+
+                letter-spacing: -2px;
+            }
+
+
+            .planner-card {
+
+                padding: 22px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-group.full {
+
+                grid-column: auto;
+            }
+
+
+            .features {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .weather-info {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            nav {
+
+                padding: 0 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Background -->
+
+    <div class="orb orb-one"></div>
+
+    <div class="orb orb-two"></div>
+
+
+    <!-- Navbar -->
+
+    <nav>
+
+        <div class="logo">
+            Smart<span>Pack</span> AI
+        </div>
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            AI Online
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+
+    <main>
+
+
+        <!-- Hero -->
+
+        <section class="hero">
+
+            <div class="badge">
+                ✦ AI-Powered Travel Assistant
+            </div>
+
+
+            <h1>
+                Pack Smarter.<br>
+                <span>Travel Better.</span>
+            </h1>
+
+
+            <p>
+                Tell SmartPack where you're going,
+                what you're doing and how long you're staying.
+                Our AI will create a practical packing list for you.
+            </p>
+
+        </section>
+
+
+        <!-- Planner -->
+
+        <section class="planner-card">
+
+
+            <form
+                id="packingForm"
+                method="POST"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="form-grid">
+
+
+                    <!-- Destination -->
+
+                    <div class="form-group">
+
+                        <label for="destination">
+                            Destination
+                        </label>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            name="destination"
+                            placeholder="Where are you going?"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Days -->
+
+                    <div class="form-group">
+
+                        <label for="days">
+                            Trip Duration
+                        </label>
+
+                        <input
+                            type="number"
+                            id="days"
+                            name="days"
+                            placeholder="Number of days"
+                            min="1"
+                            max="365"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Trip Purpose -->
+
+                    <div class="form-group">
+
+                        <label for="purpose">
+                            Trip Purpose
+                        </label>
+
+
+                        <select
+                            id="purpose"
+                            name="purpose"
+                        >
+
+                            <option value="Vacation">
+                                🌴 Vacation
+                            </option>
+
+                            <option value="Business">
+                                💼 Business
+                            </option>
+
+                            <option value="Family trip">
+                                👨‍👩‍👧 Family Trip
+                            </option>
+
+                            <option value="Adventure">
+                                🏔️ Adventure
+                            </option>
+
+                            <option value="Other">
+                                ✨ Other
+                            </option>
+
+                        </select>
+
+
+                        <!-- Custom purpose -->
+
+                        <div
+                            id="customPurposeBox"
+                            class="custom-purpose"
+                        >
+
+                            <input
+                                type="text"
+                                id="customPurpose"
+                                placeholder="Tell us what you're traveling for..."
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Activities -->
+
+                    <div class="form-group">
+
+                        <label class="activity-label">
+                            Activities
+                        </label>
+
+
+                        <div class="activities">
+
+
+                            <div
+                                class="activity"
+                                data-value="Sightseeing"
+                            >
+                                📸 Sightseeing
+                            </div>
+
+
+                            <div
+                                class="activity"
+                                data-value="Beach"
+                            >
+                                🏖️ Beach
+                            </div>
+
+
+                            <div
+                                class="activity"
+                                data-value="Hiking"
+                            >
+                                🥾 Hiking
+                            </div>
+
+
+                            <div
+                                class="activity"
+                                data-value="Swimming"
+                            >
+                                🏊 Swimming
+                            </div>
+
+
+                            <div
+                                class="activity"
+                                data-value="Business meetings"
+                            >
+                                💼 Meetings
+                            </div>
+
+
+                            <div
+                                class="activity"
+                                data-value="Photography"
+                            >
+                                📷 Photography
+                            </div>
+
+
+                        </div>
+
+
+                        <input
+                            type="hidden"
+                            id="activities"
+                            name="activities"
+                            value=""
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Generate -->
+
+                <button
+                    type="submit"
+                    class="generate-btn"
+                    id="generateButton"
+                >
+                    ✦ Create My Packing List
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- Features -->
+
+        <section class="features">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🌦️
+                </div>
+
+                <h3>
+                    Weather Aware
+                </h3>
+
+                <p>
+                    SmartPack checks the current weather
+                    at your destination before suggesting items.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    AI Decisions
+                </h3>
+
+                <p>
+                    The AI chooses useful items based on
+                    your destination, purpose and activities.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🎒
+                </div>
+
+                <h3>
+                    Simple Packing
+                </h3>
+
+                <p>
+                    Get a short and practical list instead
+                    of an overwhelming checklist.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        {% if result %}
+
+        <!-- RESULT -->
+
+        <section class="result-section">
+
+
+            <div class="result-title">
+                🎒 Your SmartPack Result
+            </div>
+
+
+            {% if result.weather and not result.weather.error %}
+
+            <div class="weather-box">
+
+                <h3>
+                    🌤️ Weather in {{ result.weather.city }}
+                </h3>
+
+
+                <div class="weather-info">
+
+
+                    <div class="weather-item">
+
+                        Temperature
+
+                        <strong>
+                            {{ result.weather.temperature }} °C
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        Humidity
+
+                        <strong>
+                            {{ result.weather.humidity }}%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        Precipitation
+
+                        <strong>
+                            {{ result.weather.precipitation }} mm
+                        </strong>
+
+                    </div>
+
+
+                    <div class="weather-item">
+
+                        Wind
+
+                        <strong>
+                            {{ result.weather.wind_speed }} km/h
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- Packing List -->
+
+            <h3 style="margin-bottom: 12px;">
+                🎒 Packing List
+            </h3>
+
+
+            <ul class="packing-list">
+
+                {% for item in result.packing_list %}
+
+                <li>
+                    ✓ {{ item }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+
+            <!-- AI Summary -->
+
+            <div class="ai-summary">
+
+                <strong>
+                    🤖 AI Summary
+                </strong>
+
+                <br><br>
+
+                {{ result.answer }}
+
+            </div>
+
+
+        </section>
+
+        {% endif %}
+
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+
+        /* =====================================
+           ACTIVITY SELECTION
+        ====================================== */
+
+
+        const activityButtons =
+            document.querySelectorAll(".activity");
+
+        const activitiesInput =
+            document.getElementById("activities");
+
+
+        activityButtons.forEach(function (activity) {
+
+            activity.addEventListener("click", function () {
+
+                this.classList.toggle("active");
+
+
+                const selectedActivities = [];
+
+
+                document
+                    .querySelectorAll(".activity.active")
+                    .forEach(function (selected) {
+
+                        selectedActivities.push(
+                            selected.dataset.value
+                        );
+
+                    });
+
+
+                activitiesInput.value =
+                    selectedActivities.join(", ");
+
+            });
+
+        });
+
+
+
+        /* =====================================
+           CUSTOM TRIP PURPOSE
+        ====================================== */
+
+
+        const purposeSelect =
+            document.getElementById("purpose");
+
+
+        const customPurposeBox =
+            document.getElementById("customPurposeBox");
+
+
+        const customPurpose =
+            document.getElementById("customPurpose");
+
+
+        purposeSelect.addEventListener(
+            "change",
+            function () {
+
+
+                if (this.value === "Other") {
+
+                    customPurposeBox.classList.add("show");
+
+                    customPurpose.focus();
+
+                }
+
+                else {
+
+                    customPurposeBox.classList.remove("show");
+
+                    customPurpose.value = "";
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================
+           FORM SUBMISSION
+        ====================================== */
+
+
+        const form =
+            document.getElementById("packingForm");
+
+
+        const button =
+            document.getElementById("generateButton");
+
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+
+                /*
+                 * If the user selected "Other",
+                 * send the custom purpose to Django.
+                 */
+
+                if (
+                    purposeSelect.value === "Other"
+                    &&
+                    customPurpose.value.trim() !== ""
+                ) {
+
+                    purposeSelect.value =
+                        customPurpose.value.trim();
+
+                }
+
+
+                button.innerHTML =
+                    "⏳ Creating your packing list...";
+
+
+                button.disabled = true;
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>
